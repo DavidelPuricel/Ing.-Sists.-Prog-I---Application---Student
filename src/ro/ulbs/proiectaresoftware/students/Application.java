@@ -1,5 +1,10 @@
 package ro.ulbs.proiectaresoftware.students;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Application {
@@ -18,6 +23,37 @@ public class Application {
         System.out.println(String.format("%10s %12s %11s %14s", "numarMatricol", "prenume", "nume", "formatieDeStudiu"));
         for (Student student : lista) {
             System.out.println(student);
+        }
+
+        Path pathIn = Paths.get("src/ro/ulbs/proiectaresoftware/students/studenti_in.txt");
+        Path pathOut = Paths.get("src/ro/ulbs/proiectaresoftware/students/studenti_out.txt");
+
+        List<Student> listaDinFisier = new ArrayList<>();
+
+        try{
+            List<String> linii = Files.readAllLines(pathIn);
+            for(String linie : linii){
+                if(!linie.trim().isEmpty()){
+                    String[] date = linie.split(",");
+                    if(date.length == 4){
+                        Student s =new Student(Integer.parseInt(date[0]),date[2],date[1],date[3]);
+                        listaDinFisier.add(s);
+                    }
+                }
+            }
+
+            Collections.sort(listaDinFisier);
+            List<String> deSalvat = new ArrayList<>();
+            for(Student s : listaDinFisier){
+                deSalvat.add(s.toString());
+            }
+            Files.write(pathOut, deSalvat);
+            System.out.println("\nStudetii au fost sortati si salvati in fisier");
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+
         }
     }
 }

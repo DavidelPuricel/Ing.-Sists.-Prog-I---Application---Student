@@ -2,7 +2,7 @@ package ro.ulbs.proiectaresoftware.students;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student {
+public class Student implements Comparable<Student> {
     int numarMatricol;
     String nume;
     String prenume;
@@ -13,6 +13,11 @@ public class Student {
         this.nume = nume;
         this.prenume = prenume;
         this.formatieDeStudiu = formatieDeStudiu;
+    }
+
+    @Override
+    public int compareTo(Student altul){
+        return this.nume.compareTo(altul.nume);
     }
 
     @Override

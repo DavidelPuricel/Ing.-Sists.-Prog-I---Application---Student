@@ -17,6 +17,10 @@ public class Student implements Comparable<Student> {
 
     @Override
     public int compareTo(Student altul){
+        int rezGrupa = this.formatieDeStudiu.compareTo(altul.formatieDeStudiu);
+        if (rezGrupa != 0) {
+            return rezGrupa;
+        }
         return this.nume.compareTo(altul.nume);
     }
 

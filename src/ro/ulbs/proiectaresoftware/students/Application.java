@@ -26,7 +26,8 @@ public class Application {
         }
 
         Path pathIn = Paths.get("src/ro/ulbs/proiectaresoftware/students/studenti_in.txt");
-        Path pathOut = Paths.get("src/ro/ulbs/proiectaresoftware/students/studenti_out.txt");
+        //Path pathOut = Paths.get("src/ro/ulbs/proiectaresoftware/students/studenti_out.txt");
+        Path pathOutSorted = Paths.get("src/ro/ulbs/proiectaresoftware/students/studenti_out_sorted.txt");
 
         List<Student> listaDinFisier = new ArrayList<>();
 
@@ -42,13 +43,23 @@ public class Application {
                 }
             }
 
+//            Collections.sort(listaDinFisier);
+//            List<String> deSalvat = new ArrayList<>();
+//            for(Student s : listaDinFisier){
+//                deSalvat.add(s.toString());
+//            }
+//            Files.write(pathOut, deSalvat);
+//            System.out.println("\nStudetii au fost sortati si salvati in fisier");
+
             Collections.sort(listaDinFisier);
-            List<String> deSalvat = new ArrayList<>();
-            for(Student s : listaDinFisier){
-                deSalvat.add(s.toString());
+
+            List<String> deSalvatSorted = new ArrayList<>();
+            for (Student s : listaDinFisier) {
+                deSalvatSorted.add(s.toString());
             }
-            Files.write(pathOut, deSalvat);
-            System.out.println("\nStudetii au fost sortati si salvati in fisier");
+
+            Files.write(pathOutSorted, deSalvatSorted);
+            System.out.println("Studentii au fost sortati si afisati in noul fisier");
 
 
         }catch (IOException e){

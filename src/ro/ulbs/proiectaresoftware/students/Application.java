@@ -7,10 +7,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.io.IOException;
 import java.util.*;
 
 public class Application {
+    public static void writeToFile(String filename, Collection<? extends Student> lista) {
+        List<String> linii = new ArrayList<>();
+        for (Student s : lista) {
+            linii.add(s.toString());
+        }
+        try {
+            java.nio.file.Files.write(java.nio.file.Paths.get(filename), linii);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
+
+        List<StudentBursier> bursieri = new ArrayList<>();
+        bursieri.add(new StudentBursier(1025, "Popa", "Andrei", "ISM141/2", 8.70f, 725.50));
+        bursieri.add(new StudentBursier(1024, "Mihalcea", "Ioan", "ISM141/1", 9.80f, 801.10));
+        bursieri.add(new StudentBursier(1026, "Prodan", "Anamaria", "TI131/1", 8.90f, 745.50));
+        bursieri.add(new StudentBursier(1029, "Popescu", "Bianca", "TI131/1", 9.10f, 780.80));
+
+        writeToFile("src/ro/ulbs/proiectaresoftware/students/bursieri_out.txt", bursieri);
 //        Student s1 = new Student(112, "Ioan", "Popa", "TI21/1");
 //        Student s2 = new Student(112, "Maria", "Oprea", "TI21/1");
 //        Student s3 = new Student(120, "Alis", "Popa", "TI21/2");
@@ -69,56 +89,56 @@ public class Application {
 //
 //        }
 
-        HashMap<Integer, Student> mapStudenti = new HashMap<>();
-
-        mapStudenti.put(1024, new Student(1024, "Mihalcea", "Ioan", "ISM141/1"));
-        mapStudenti.put(1025, new Student(1025, "Popa", "Andrei", "ISM141/2"));
-        mapStudenti.put(1026, new Student(1026, "Popescu", "Bianca", "TI131/2"));
-        mapStudenti.put(1027, new Student(1027, "Prodan", "Anamaria", "TI131/1"));
-
-        try (Scanner scanner = new Scanner(Paths.get("src/ro/ulbs/proiectaresoftware/students/note_anon.txt"))) {
-            while (scanner.hasNextLine()) {
-                String linie = scanner.nextLine();
-                if (linie.trim().isEmpty()) continue;
-
-                String[] date = linie.split(",");
-                int id = Integer.parseInt(date[0].trim());
-                float notaValoare = Float.parseFloat(date[1].trim());
-
-                Student s = mapStudenti.get(id);
-                if (s != null) {
-                    s.setNota(notaValoare);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Rezultate procesare note:");
-        for (Student s : mapStudenti.values()) {
-            System.out.println(s);
-        }
-
-        float notaM = gasesteNota("Bianca", "Popescu", mapStudenti);
-        float notaN = gasesteNota("Ioan", "Mihalcea", mapStudenti);
-
-        System.out.println("notaM (Bianca Popescu): " + notaM);
-        System.out.println("notaN (Ioan Mihalcea): " + notaN);
-    }
-
-    public static float gasesteNota(String prenume, String nume, Map<Integer, Student> date) {
-        Map<String, Student> cautareDupaNume = new HashMap<>();
-
-        for (Student s : date.values()) {
-            String cheie = s.prenume.trim() + " " + s.nume.trim();
-            cautareDupaNume.put(cheie, s);
-        }
-
-        String tinta = prenume.trim() + " " + nume.trim();
-        if (cautareDupaNume.containsKey(tinta)) {
-            return cautareDupaNume.get(tinta).getNota();
-        }
-
-        return 0.0f;
+//        HashMap<Integer, Student> mapStudenti = new HashMap<>();
+//
+//        mapStudenti.put(1024, new Student(1024, "Mihalcea", "Ioan", "ISM141/1"));
+//        mapStudenti.put(1025, new Student(1025, "Popa", "Andrei", "ISM141/2"));
+//        mapStudenti.put(1026, new Student(1026, "Popescu", "Bianca", "TI131/2"));
+//        mapStudenti.put(1027, new Student(1027, "Prodan", "Anamaria", "TI131/1"));
+//
+//        try (Scanner scanner = new Scanner(Paths.get("src/ro/ulbs/proiectaresoftware/students/note_anon.txt"))) {
+//            while (scanner.hasNextLine()) {
+//                String linie = scanner.nextLine();
+//                if (linie.trim().isEmpty()) continue;
+//
+//                String[] date = linie.split(",");
+//                int id = Integer.parseInt(date[0].trim());
+//                float notaValoare = Float.parseFloat(date[1].trim());
+//
+//                Student s = mapStudenti.get(id);
+//                if (s != null) {
+//                    s.setNota(notaValoare);
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("Rezultate procesare note:");
+//        for (Student s : mapStudenti.values()) {
+//            System.out.println(s);
+//        }
+//
+//        float notaM = gasesteNota("Bianca", "Popescu", mapStudenti);
+//        float notaN = gasesteNota("Ioan", "Mihalcea", mapStudenti);
+//
+//        System.out.println("notaM (Bianca Popescu): " + notaM);
+//        System.out.println("notaN (Ioan Mihalcea): " + notaN);
+//    }
+//
+//    public static float gasesteNota(String prenume, String nume, Map<Integer, Student> date) {
+//        Map<String, Student> cautareDupaNume = new HashMap<>();
+//
+//        for (Student s : date.values()) {
+//            String cheie = s.prenume.trim() + " " + s.nume.trim();
+//            cautareDupaNume.put(cheie, s);
+//        }
+//
+//        String tinta = prenume.trim() + " " + nume.trim();
+//        if (cautareDupaNume.containsKey(tinta)) {
+//            return cautareDupaNume.get(tinta).getNota();
+//        }
+//
+//        return 0.0f;
     }
 }

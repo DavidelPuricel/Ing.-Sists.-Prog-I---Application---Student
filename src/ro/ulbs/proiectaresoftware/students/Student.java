@@ -9,11 +9,12 @@ public class Student implements Comparable<Student> {
     String formatieDeStudiu;
     float nota;
 
-    public Student(int numarMatricol, String nume, String prenume, String formatieDeStudiu) {
+    public Student(int numarMatricol, String nume, String prenume, String formatieDeStudiu, float nota) {
         this.numarMatricol = numarMatricol;
         this.nume = nume;
         this.prenume = prenume;
         this.formatieDeStudiu = formatieDeStudiu;
+        this.nota = nota;
     }
     public void setNota(float nota){
         this.nota=nota;

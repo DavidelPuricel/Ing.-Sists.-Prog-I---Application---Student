@@ -16,12 +16,13 @@ public class Student implements Comparable<Student> {
         this.formatieDeStudiu = formatieDeStudiu;
         this.nota = nota;
     }
+    public String getNume() { return nume; }
+    public String getPrenume() { return prenume; }
+    public String getFormatieDeStudiu() { return formatieDeStudiu; }
+    public float getNota() { return nota; }
     public void setNota(float nota){
         this.nota=nota;
 
-    }
-    public float getNota(){
-        return nota;
     }
 
     @Override

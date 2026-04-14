@@ -8,6 +8,9 @@ public class StudentBursier extends Student {
         super(id, nume, prenume, grupa, nota);
         this.cuantumBursa = cuantumBursa;
     }
+    public double getCuantumBursa() {
+        return cuantumBursa;
+    }
 
     @Override
     public String toString() {

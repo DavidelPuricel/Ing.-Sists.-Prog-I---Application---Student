@@ -2,7 +2,7 @@ package ro.ulbs.proiectaresoftware.students;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Student implements Comparable<Student> {
+public class Student implements Comparable<Student> {//final intra in conflict cu clasa student bursier
     final int numarMatricol;
     final String nume;
     final String prenume;

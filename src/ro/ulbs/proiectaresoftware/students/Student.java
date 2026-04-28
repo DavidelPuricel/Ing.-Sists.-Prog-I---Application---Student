@@ -2,12 +2,12 @@ package ro.ulbs.proiectaresoftware.students;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student implements Comparable<Student> {
-    int numarMatricol;
-    String nume;
-    String prenume;
-    String formatieDeStudiu;
-    float nota;
+public final class Student implements Comparable<Student> {
+    final int numarMatricol;
+    final String nume;
+    final String prenume;
+    final String formatieDeStudiu;
+    final float nota;
 
     public Student(int numarMatricol, String nume, String prenume, String formatieDeStudiu, float nota) {
         this.numarMatricol = numarMatricol;
@@ -16,13 +16,12 @@ public class Student implements Comparable<Student> {
         this.formatieDeStudiu = formatieDeStudiu;
         this.nota = nota;
     }
-    public void setNota(float nota){
-        this.nota=nota;
+    public int getNumarMatricol() { return numarMatricol; }
+    public String getNume() { return nume; }
+    public String getPrenume() { return prenume; }
+    public String getFormatieDeStudiu() { return formatieDeStudiu; }
+    public float getNota() { return nota; }
 
-    }
-    public float getNota(){
-        return nota;
-    }
 
     @Override
     public boolean equals(Object obj) {

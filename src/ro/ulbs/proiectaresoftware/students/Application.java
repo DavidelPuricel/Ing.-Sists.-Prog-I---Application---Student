@@ -11,26 +11,65 @@ import java.io.IOException;
 import java.util.*;
 
 public class Application {
-    public static void writeToFile(String filename, Collection<? extends Student> lista) {
-        List<String> linii = new ArrayList<>();
-        for (Student s : lista) {
-            linii.add(s.toString());
-        }
-        try {
-            java.nio.file.Files.write(java.nio.file.Paths.get(filename), linii);
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void writeToFile(String filename, Collection<? extends Student> lista) {
+//        List<String> linii = new ArrayList<>();
+//        for (Student s : lista) {
+//            linii.add(s.toString());
+//        }
+//        try {
+//            java.nio.file.Files.write(java.nio.file.Paths.get(filename), linii);
+//        } catch (java.io.IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     public static void main(String[] args) {
 
-        List<StudentBursier> bursieri = new ArrayList<>();
-        bursieri.add(new StudentBursier(1025, "Popa", "Andrei", "ISM141/2", 8.70f, 725.50));
-        bursieri.add(new StudentBursier(1024, "Mihalcea", "Ioan", "ISM141/1", 9.80f, 801.10));
-        bursieri.add(new StudentBursier(1026, "Prodan", "Anamaria", "TI131/1", 8.90f, 745.50));
-        bursieri.add(new StudentBursier(1029, "Popescu", "Bianca", "TI131/1", 9.10f, 780.80));
+        Set<Student> studentiInitiali = new HashSet<>(Arrays.asList(
+                new Student(101, "Popescu", "Ion", "A", 9.5f),
+                new Student(102, "Ionescu", "Ana", "A", 8.0f),
+                new Student(103, "Vasilescu", "Dan", "A", 7.5f),
+                new Student(104, "Georgescu", "Maria", "A", 10.0f)
+        ));
 
-        writeToFile("src/ro/ulbs/proiectaresoftware/students/bursieri_out.txt", bursieri);
+        System.out.println("Studenti initiali:");
+        studentiInitiali.forEach(System.out::println);
+
+        // Impartim in doua formatii noi
+        Set<Student> studentiNoi = imparteInDouaFormatii(studentiInitiali, "TI 211_1", "TI 211_2");
+
+        System.out.println("\nStudenti dupa impartirea in formatii noi:");
+        for (Student s : studentiNoi) {
+            System.out.println(s);
+        }
+    }
+
+    // 7.6.3 b) Metoda care "muta" un student creand o instanta noua
+    public static Student schimbaFormatia(Student st, String nouaFormatieDeStudiu) {
+        // Deoarece Student este imutabil, returnam un obiect NOU cu aceleasi date, dar formatie noua
+        return new Student(st.getNumarMatricol(), st.getNume(), st.getPrenume(), nouaFormatieDeStudiu, st.getNota());
+    }
+
+    // Metoda pentru impartirea listei in doua
+    public static Set<Student> imparteInDouaFormatii(Set<Student> studenti, String f1, String f2) {
+        List<Student> listaSursa = new ArrayList<>(studenti);
+        Set<Student> rezultat = new HashSet<>();
+
+        int mijloc = (listaSursa.size() + 1) / 2;
+
+        for (int i = 0; i < listaSursa.size(); i++) {
+            String formatieAleasa = (i < mijloc) ? f1 : f2;
+            // Apelam metoda de schimbare care produce obiecte noi
+            rezultat.add(schimbaFormatia(listaSursa.get(i), formatieAleasa));
+        }
+        return rezultat;
+
+//        List<StudentBursier> bursieri = new ArrayList<>();
+//        bursieri.add(new StudentBursier(1025, "Popa", "Andrei", "ISM141/2", 8.70f, 725.50));
+//        bursieri.add(new StudentBursier(1024, "Mihalcea", "Ioan", "ISM141/1", 9.80f, 801.10));
+//        bursieri.add(new StudentBursier(1026, "Prodan", "Anamaria", "TI131/1", 8.90f, 745.50));
+//        bursieri.add(new StudentBursier(1029, "Popescu", "Bianca", "TI131/1", 9.10f, 780.80));
+//
+//        writeToFile("src/ro/ulbs/proiectaresoftware/students/bursieri_out.txt", bursieri);
 //        Student s1 = new Student(112, "Ioan", "Popa", "TI21/1");
 //        Student s2 = new Student(112, "Maria", "Oprea", "TI21/1");
 //        Student s3 = new Student(120, "Alis", "Popa", "TI21/2");

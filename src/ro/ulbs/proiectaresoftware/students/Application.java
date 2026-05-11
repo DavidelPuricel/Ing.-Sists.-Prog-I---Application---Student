@@ -24,44 +24,84 @@ public class Application {
 //    }
     public static void main(String[] args) {
 
-        Set<Student> studentiInitiali = new HashSet<>(Arrays.asList(
-                new Student(101, "Popescu", "Ion", "A", 9.5f),
-                new Student(102, "Ionescu", "Ana", "A", 8.0f),
-                new Student(103, "Vasilescu", "Dan", "A", 7.5f),
-                new Student(104, "Georgescu", "Maria", "A", 10.0f)
-        ));
 
-        System.out.println("Studenti initiali:");
-        studentiInitiali.forEach(System.out::println);
 
-        // Impartim in doua formatii noi
-        Set<Student> studentiNoi = imparteInDouaFormatii(studentiInitiali, "TI 211_1", "TI 211_2");
+        List<Student> students = Arrays.asList(
+                new Student(1029, "Andrei", "Popescu", "TI131/1", 10.0F),
+                new Student(1029, "Marius", "Ionescu", "TI131/1", 9.20F),
+                new Student(1029, "Andreea", "Popa", "TI131/2", 10.0F),
+                new Student(1029, "Marius", "Nasta", "TI131/2", 3.20F),
+                new Student(1029, "Marius", "Nasta", "TI131/1", 5.12F),
+                new Student(1029, "Andrei", "Dobrescu", "TI131/2", 2.22F)
+        );
 
-        System.out.println("\nStudenti dupa impartirea in formatii noi:");
-        for (Student s : studentiNoi) {
-            System.out.println(s);
-        }
-    }
+        students.stream() //definita in interfata Collection
+                .filter(s->s.getNota()==10)
+                .forEach(s-> System.out.println(s));
+        System.out.println();
 
-    // 7.6.3 b) Metoda care "muta" un student creand o instanta noua
-    public static Student schimbaFormatia(Student st, String nouaFormatieDeStudiu) {
-        // Deoarece Student este imutabil, returnam un obiect NOU cu aceleasi date, dar formatie noua
-        return new Student(st.getNumarMatricol(), st.getNume(), st.getPrenume(), nouaFormatieDeStudiu, st.getNota());
-    }
+        students.stream()
+                .filter(s->s.getNota()<5)
+                .forEach(s-> System.out.println(s));
 
-    // Metoda pentru impartirea listei in doua
-    public static Set<Student> imparteInDouaFormatii(Set<Student> studenti, String f1, String f2) {
-        List<Student> listaSursa = new ArrayList<>(studenti);
-        Set<Student> rezultat = new HashSet<>();
+        students.stream()
+                .map(s->{
+                    if(s.getNota()<4)s.setNota(4);
+                    return s.getNota();
+                        })
+                .forEach(s-> System.out.println(s));
 
-        int mijloc = (listaSursa.size() + 1) / 2;
+        float suma = students.stream()
+                .map(Student::getNota)
+                .reduce(0.0F, (acumulator, nota)->acumulator+nota);
 
-        for (int i = 0; i < listaSursa.size(); i++) {
-            String formatieAleasa = (i < mijloc) ? f1 : f2;
-            // Apelam metoda de schimbare care produce obiecte noi
-            rezultat.add(schimbaFormatia(listaSursa.get(i), formatieAleasa));
-        }
-        return rezultat;
+        System.out.println("Suma notelor este: "+suma);
+        System.out.println("media este: "+(suma/students.size()));
+
+
+
+
+
+
+
+//        Set<Student> studentiInitiali = new HashSet<>(Arrays.asList(
+//                new Student(101, "Popescu", "Ion", "A", 9.5f),
+//                new Student(102, "Ionescu", "Ana", "A", 8.0f),
+//                new Student(103, "Vasilescu", "Dan", "A", 7.5f),
+//                new Student(104, "Georgescu", "Maria", "A", 10.0f)
+//        ));
+//
+//        System.out.println("Studenti initiali:");
+//        studentiInitiali.forEach(System.out::println);
+//
+//        // Impartim in doua formatii noi
+//        Set<Student> studentiNoi = imparteInDouaFormatii(studentiInitiali, "TI 211_1", "TI 211_2");
+//
+//        System.out.println("\nStudenti dupa impartirea in formatii noi:");
+//        for (Student s : studentiNoi) {
+//            System.out.println(s);
+//        }
+//    }
+//
+//    // 7.6.3 b) Metoda care "muta" un student creand o instanta noua
+//    public static Student schimbaFormatia(Student st, String nouaFormatieDeStudiu) {
+//        // Deoarece Student este imutabil, returnam un obiect NOU cu aceleasi date, dar formatie noua
+//        return new Student(st.getNumarMatricol(), st.getNume(), st.getPrenume(), nouaFormatieDeStudiu, st.getNota());
+//    }
+//
+//    // Metoda pentru impartirea listei in doua
+//    public static Set<Student> imparteInDouaFormatii(Set<Student> studenti, String f1, String f2) {
+//        List<Student> listaSursa = new ArrayList<>(studenti);
+//        Set<Student> rezultat = new HashSet<>();
+//
+//        int mijloc = (listaSursa.size() + 1) / 2;
+//
+//        for (int i = 0; i < listaSursa.size(); i++) {
+//            String formatieAleasa = (i < mijloc) ? f1 : f2;
+//            // Apelam metoda de schimbare care produce obiecte noi
+//            rezultat.add(schimbaFormatia(listaSursa.get(i), formatieAleasa));
+//        }
+//        return rezultat;
 
 //        List<StudentBursier> bursieri = new ArrayList<>();
 //        bursieri.add(new StudentBursier(1025, "Popa", "Andrei", "ISM141/2", 8.70f, 725.50));

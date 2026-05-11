@@ -7,7 +7,7 @@ public class Student implements Comparable<Student> {//final intra in conflict c
     final String nume;
     final String prenume;
     final String formatieDeStudiu;
-    final float nota;
+    /*final*/ float nota;
 
     public Student(int numarMatricol, String nume, String prenume, String formatieDeStudiu, float nota) {
         this.numarMatricol = numarMatricol;
@@ -21,6 +21,7 @@ public class Student implements Comparable<Student> {//final intra in conflict c
     public String getPrenume() { return prenume; }
     public String getFormatieDeStudiu() { return formatieDeStudiu; }
     public float getNota() { return nota; }
+    public void setNota(float nota){this.nota=nota;}
 
 
     @Override
